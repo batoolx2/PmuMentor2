@@ -1,0 +1,40 @@
+import java.util.HashMap;
+
+public class UserService {
+
+    private HashMap<String, User> users = new HashMap<>();
+
+    public boolean createAccount(String email, String password) {
+
+        if (!email.endsWith("@pmu.edu.sa")) {
+            System.out.println("Email must end with @pmu.edu.sa");
+            return false;
+        }
+
+        if (password.length() < 6) {
+            System.out.println("Password must be at least 6 characters.");
+            return false;
+        }
+
+        users.put(email, new User(email, password));
+        System.out.println("Account created successfully!");
+        return true;
+    }
+
+    public boolean login(String email, String password) {
+        User user = users.get(email);
+
+        if (user == null) {
+            System.out.println("User not found!");
+            return false;
+        }
+
+        if (!user.getPassword().equals(password)) {
+            System.out.println("Wrong password!");
+            return false;
+        }
+
+        System.out.println("Login successful!");
+        return true;
+    }
+}
